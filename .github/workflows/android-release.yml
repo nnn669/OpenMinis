@@ -22,10 +22,10 @@ jobs:
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          # r28c stable — the 28.0.12433566 build number previously here
-          # doesn't correspond to any published NDK release (404 from the
-          # download host), which skipped every subsequent step.
-          ndk-version: "28.2.13676358"
+          # nttld/setup-ndk wants the "rXXy" release alias, not the numeric
+          # build number (28.x.xxxxxxx) — that format 404'd twice before
+          # this fix.
+          ndk-version: "r28c"
           add-to-path: false
 
       - name: Cache Gradle
