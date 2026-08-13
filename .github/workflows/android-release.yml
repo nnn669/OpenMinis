@@ -12,6 +12,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # deps/proot is a git submodule (OpenMinis/proot fork); actions/checkout
+      # doesn't fetch submodules by default. Only init this one — deps/ish is
+      # unrelated to the terminal/proot boot path and unnecessarily large.
+      - name: Init proot submodule
+        run: git submodule update --init deps/proot
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
