@@ -94,7 +94,13 @@ android {
     }
 
     androidResources {
-        noCompress += listOf("tar.gz", "proot-aarch64")
+        // T-terminal-boot-fix: RootfsManager ships the sandbox rootfs as
+        // plain "alpine-minirootfs.tar" (no .gz), but only "tar.gz" was
+        // exempted from AAPT compression. AssetManager.openFd() can't open
+        // a DEFLATE-compressed asset, so RootfsManager.installIfNeeded()
+        // threw FileNotFoundException on every boot and the terminal never
+        // came up ("[Shell not running]" on every shell_execute call).
+        noCompress += listOf("tar.gz", "tar", "proot-aarch64")
     }
 
     testOptions {
